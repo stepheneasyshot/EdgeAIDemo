@@ -1,37 +1,32 @@
-rootProject.name = "SmallModel"
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 pluginManagement {
     repositories {
-        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
+        maven("https://maven.aliyun.com/repository/google")
+        maven ("https://maven.aliyun.com/repository/public")
+        maven ("https://maven.aliyun.com/repository/gradle-plugin")
         google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
             }
         }
         mavenCentral()
+        maven("https://jitpack.io")
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
-        google {
-            mavenContent {
-                includeGroupAndSubgroups("androidx")
-                includeGroupAndSubgroups("com.android")
-                includeGroupAndSubgroups("com.google")
-            }
-        }
+        maven("https://maven.aliyun.com/repository/google")
+        maven ("https://maven.aliyun.com/repository/public")
+        maven ("https://maven.aliyun.com/repository/gradle-plugin")
+        google()
+        maven("https://jitpack.io")
         mavenCentral()
     }
 }
 
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-}
-
-include(":composeApp")
+rootProject.name = "LLMDemo"
+include(":app")
+ 

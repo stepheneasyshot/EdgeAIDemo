@@ -70,8 +70,8 @@ fun ModelLoadPage(padding: PaddingValues) {
             activityResult.data?.let {
                 it.data?.let { uri ->
                     infoLog("Selected file uri: ${uri.path}")
-                    if (checkGGUFFile(uri)) {
-                        copyModelFile(uri, onComplete = { fileName ->
+                    if (LLManager.checkGGUFFile(uri)) {
+                        LLManager.copyModelFile(uri, onComplete = { fileName ->
                             toastState.show("Model file copied to files dir: $fileName")
                             internalFileName.value = fileName
                             isFileExist.value = internalFileName.value.isNotEmpty()
@@ -84,7 +84,7 @@ fun ModelLoadPage(padding: PaddingValues) {
         }
 
     LaunchedEffect(Unit) {
-        internalFileName.value = checkModelFileExist() ?: ""
+        internalFileName.value = LLManager.checkModelFileExist() ?: ""
         isFileExist.value = internalFileName.value.isNotEmpty()
     }
 
@@ -135,7 +135,7 @@ fun ModelLoadPage(padding: PaddingValues) {
             onClick = {
                 if (internalFileName.value.isNotEmpty())
                     scope.launch {
-                        loadChat(fileName = internalFileName.value) {
+                        LLManager.loadChat(fileName = internalFileName.value) {
                             toastState.show("$internalFileName 加载完毕")
                         }
                     }
@@ -229,65 +229,4 @@ fun ModelLoadPage(padding: PaddingValues) {
 
         Text(text = partiallyResponse.value, modifier = Modifier.padding(10.dp))
     }
-}
-
-fun copyModelFile(
-    uri: Uri,
-    onComplete: (String) -> Unit,
-) {
-    var fileName = ""
-    appContext.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
-        val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-        cursor.moveToFirst()
-        fileName = cursor.getString(nameIndex)
-    }
-    if (fileName.isNotEmpty()) {
-        CoroutineScope(Dispatchers.IO).launch {
-            appContext.contentResolver.openInputStream(uri).use { inputStream ->
-                FileOutputStream(File(appContext.filesDir, fileName)).use { outputStream ->
-                    inputStream?.copyTo(outputStream)
-                }
-            }
-            val ggufFileReader = GgufFileReader()
-            ggufFileReader.load(File(appContext.filesDir, fileName).absolutePath)
-            withContext(Dispatchers.Main) {
-                onComplete(fileName)
-            }
-        }
-    } else {
-        errorLog("File name is empty")
-    }
-}
-
-suspend fun loadChat(fileName: String, onSuccess: () -> Unit) = withContext(Dispatchers.IO) {
-    val path = File(appContext.filesDir, fileName).absolutePath
-    LLManager.load(absolutePath = path, onSuccess = {
-        infoLog("Model loaded")
-        onSuccess()
-    }, onError = {
-        infoLog("Model load error: $it")
-    })
-}
-
-private fun checkGGUFFile(uri: Uri): Boolean {
-    appContext.contentResolver.openInputStream(uri)?.use { inputStream ->
-        val ggufMagicNumberBytes = ByteArray(4)
-        inputStream.read(ggufMagicNumberBytes)
-        return ggufMagicNumberBytes.contentEquals(byteArrayOf(71, 71, 85, 70))
-    }
-    return false
-}
-
-/**
- * 查看内部目录下是否有gguf后缀文件
- */
-private fun checkModelFileExist(): String? {
-    val filesDir = appContext.filesDir
-    val files = filesDir.listFiles()
-    files?.forEach { file ->
-        if (file.name.endsWith(".gguf")) {
-            return file.name
-        }
-    }
-    return null
 }

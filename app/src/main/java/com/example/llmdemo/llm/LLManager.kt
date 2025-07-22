@@ -1,13 +1,20 @@
 package com.example.llmdemo.llm
 
+import android.net.Uri
+import android.provider.OpenableColumns
+import com.example.llmdemo.appContext
 import com.stephen.commonhelper.utils.debugLog
+import com.stephen.commonhelper.utils.errorLog
 import com.stephen.commonhelper.utils.infoLog
+import com.stephen.llamacppbridge.GgufFileReader
 import com.stephen.llamacppbridge.LlamaCppBridge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
 import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.measureTime
 
@@ -77,5 +84,66 @@ object LLManager {
         } catch (e: Exception) {
             onError(e)
         }
+    }
+
+    fun copyModelFile(
+        uri: Uri,
+        onComplete: (String) -> Unit,
+    ) {
+        var fileName = ""
+        appContext.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+            cursor.moveToFirst()
+            fileName = cursor.getString(nameIndex)
+        }
+        if (fileName.isNotEmpty()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                appContext.contentResolver.openInputStream(uri).use { inputStream ->
+                    FileOutputStream(File(appContext.filesDir, fileName)).use { outputStream ->
+                        inputStream?.copyTo(outputStream)
+                    }
+                }
+                val ggufFileReader = GgufFileReader()
+                ggufFileReader.load(File(appContext.filesDir, fileName).absolutePath)
+                withContext(Dispatchers.Main) {
+                    onComplete(fileName)
+                }
+            }
+        } else {
+            errorLog("File name is empty")
+        }
+    }
+
+    suspend fun loadChat(fileName: String, onSuccess: () -> Unit) = withContext(Dispatchers.IO) {
+        val path = File(appContext.filesDir, fileName).absolutePath
+        LLManager.load(absolutePath = path, onSuccess = {
+            infoLog("Model loaded")
+            onSuccess()
+        }, onError = {
+            infoLog("Model load error: $it")
+        })
+    }
+
+    fun checkGGUFFile(uri: Uri): Boolean {
+        appContext.contentResolver.openInputStream(uri)?.use { inputStream ->
+            val ggufMagicNumberBytes = ByteArray(4)
+            inputStream.read(ggufMagicNumberBytes)
+            return ggufMagicNumberBytes.contentEquals(byteArrayOf(71, 71, 85, 70))
+        }
+        return false
+    }
+
+    /**
+     * 查看内部目录下是否有gguf后缀文件
+     */
+    fun checkModelFileExist(): String? {
+        val filesDir = appContext.filesDir
+        val files = filesDir.listFiles()
+        files?.forEach { file ->
+            if (file.name.endsWith(".gguf")) {
+                return file.name
+            }
+        }
+        return null
     }
 }

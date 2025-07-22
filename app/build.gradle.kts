@@ -43,6 +43,7 @@ dependencies {
 
     implementation(fileTree("libs").include("*.aar", "*.jar"))
 
+    implementation(project(":llamacppbridge"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

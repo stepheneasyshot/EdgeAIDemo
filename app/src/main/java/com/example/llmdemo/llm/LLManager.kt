@@ -2,7 +2,7 @@ package com.example.llmdemo.llm
 
 import com.stephen.commonhelper.utils.debugLog
 import com.stephen.commonhelper.utils.infoLog
-import io.shubham0204.smollm.SmolLM
+import com.stephen.llamacppbridge.LlamaCppBridge
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -12,7 +12,7 @@ import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.measureTime
 
 object LLManager {
-    private val instance = SmolLM()
+    private val instance = LlamaCppBridge()
     private var modelInitJob: Job? = null
     private var responseGenerationJob: Job? = null
     private var chat: Chat? = null
@@ -20,7 +20,7 @@ object LLManager {
     fun load(
         chat: Chat = Chat(),
         absolutePath: String,
-        params: SmolLM.InferenceParams = SmolLM.InferenceParams(),
+        params: LlamaCppBridge.InferenceParams = LlamaCppBridge.InferenceParams(),
         onError: (String) -> Unit,
         onSuccess: () -> Unit,
     ) {

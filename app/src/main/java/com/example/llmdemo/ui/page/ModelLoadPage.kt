@@ -37,7 +37,7 @@ import com.example.llmdemo.ui.component.WrappedEditText
 import com.example.llmdemo.ui.component.rememberToastState
 import com.stephen.commonhelper.utils.errorLog
 import com.stephen.commonhelper.utils.infoLog
-import io.shubham0204.smollm.GGUFReader
+import com.stephen.llamacppbridge.GgufFileReader
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -248,8 +248,8 @@ fun copyModelFile(
                     inputStream?.copyTo(outputStream)
                 }
             }
-            val ggufReader = GGUFReader()
-            ggufReader.load(File(appContext.filesDir, fileName).absolutePath)
+            val ggufFileReader = GgufFileReader()
+            ggufFileReader.load(File(appContext.filesDir, fileName).absolutePath)
             withContext(Dispatchers.Main) {
                 onComplete(fileName)
             }

@@ -12,9 +12,6 @@ class LlmApp : Application() {
         instance = this
     }
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 }
 
 val appContext = LlmApp.instance.applicationContext

@@ -29,7 +29,9 @@ android {
                 // arguments += listOf("-DANDROID_SANITIZE=hwaddress")
             }
         }
-
+        ndk {
+            abiFilters += listOf("arm64-v8a", "x86_64")
+        }
     }
 
     buildTypes {

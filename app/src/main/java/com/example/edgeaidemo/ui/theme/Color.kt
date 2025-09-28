@@ -1,4 +1,4 @@
-package com.example.llmdemo.ui.theme
+package com.example.edgeaidemo.ui.theme
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

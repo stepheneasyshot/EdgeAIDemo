@@ -1,10 +1,8 @@
-package com.example.llmdemo.ui.page
+package com.example.edgeaidemo.ui.page
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
-import android.provider.OpenableColumns
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -29,21 +27,14 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
-import com.example.llmdemo.appContext
-import com.example.llmdemo.llm.LLManager
-import com.example.llmdemo.ui.component.CenterText
-import com.example.llmdemo.ui.component.CommonButton
-import com.example.llmdemo.ui.component.WrappedEditText
-import com.example.llmdemo.ui.component.rememberToastState
+import com.example.edgeaidemo.llamacpp.LLManager
+import com.example.edgeaidemo.ui.component.CenterText
+import com.example.edgeaidemo.ui.component.CommonButton
+import com.example.edgeaidemo.ui.component.WrappedEditText
+import com.example.edgeaidemo.ui.component.rememberToastState
 import com.stephen.commonhelper.utils.errorLog
 import com.stephen.commonhelper.utils.infoLog
-import com.stephen.llamacppbridge.GgufFileReader
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
 
 @Composable
 fun ModelLoadPage(padding: PaddingValues) {

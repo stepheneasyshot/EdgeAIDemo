@@ -1,4 +1,4 @@
-package com.example.llmdemo.ui.component
+package com.example.edgeaidemo.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

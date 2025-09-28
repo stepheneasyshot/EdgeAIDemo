@@ -1,4 +1,4 @@
-package com.example.llmdemo.ui.component
+package com.example.edgeaidemo.ui.component
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable

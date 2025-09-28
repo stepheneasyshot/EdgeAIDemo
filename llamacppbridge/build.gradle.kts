@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "com.stephen.llamacppbridge"
     compileSdk = 36
-    ndkVersion = "27.2.12479018"
+    ndkVersion = "27.0.12077973"
     version = "2.0.0"
 
     defaultConfig {

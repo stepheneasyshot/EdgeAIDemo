@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.llmdemo"
+    namespace = "com.example.edgeaidemo"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.llmdemo"
+        applicationId = "com.example.edgeaidemo"
         minSdk = 30
         targetSdk = 36
         versionCode = 1

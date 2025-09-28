@@ -1,4 +1,4 @@
-package com.example.llmdemo
+package com.example.edgeaidemo
 
 import org.junit.Test
 

@@ -1,6 +1,7 @@
-package com.example.llmdemo
+package com.example.edgeaidemo
 
 import android.app.Application
+import android.content.Context
 
 class LlmApp : Application() {
 
@@ -14,4 +15,4 @@ class LlmApp : Application() {
 
 }
 
-val appContext = LlmApp.instance.applicationContext
+val appContext: Context = LlmApp.instance.applicationContext

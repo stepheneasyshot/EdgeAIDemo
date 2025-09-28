@@ -1,4 +1,4 @@
-package com.example.llmdemo
+package com.example.edgeaidemo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,8 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.llmdemo.ui.page.ModelLoadPage
-import com.example.llmdemo.ui.theme.LLMDemoTheme
+import com.example.edgeaidemo.ui.page.ModelLoadPage
+import com.example.edgeaidemo.ui.theme.LLMDemoTheme
 
 class MainActivity : ComponentActivity() {
 

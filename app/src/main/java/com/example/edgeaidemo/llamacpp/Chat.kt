@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.llmdemo.llm
+package com.example.edgeaidemo.llamacpp
 
 import java.util.Date
 

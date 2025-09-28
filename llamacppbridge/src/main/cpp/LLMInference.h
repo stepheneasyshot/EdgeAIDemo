@@ -1,5 +1,7 @@
+#pragma once
 #include "llama.h"
 #include <jni.h>
+#include "common.h"
 #include <string>
 #include <vector>
 
@@ -18,7 +20,7 @@ class LLMInference {
     /// 当前采样得到的 llama token
     llama_token _currToken;
     /// llama 批处理结构，用于批量处理输入 token
-    llama_batch _batch;
+    llama_batch *_batch;
 
     // 存储聊天中用户/助手消息的容器
     /// 存储聊天过程中用户和助手的消息列表

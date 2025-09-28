@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.22.1)
 project("smollm")
 
-set(LLAMA_DIR "../../../../llama.cpp")
+# Resolve LLAMA_DIR to an absolute path
+set(LLAMA_DIR_RELATIVE "../../../../llama.cpp")
+get_filename_component(LLAMA_DIR ${LLAMA_DIR_RELATIVE} ABSOLUTE)
+
 set(GGML_DIR ${LLAMA_DIR}/ggml)
 set(COMMON_DIR ${LLAMA_DIR}/common)
 set(VENDOR_DIR ${LLAMA_DIR}/vendor)
-set(SMOLLM_SOURCES
+set(LLAMA_SOURCES
         ${GGML_DIR}/src/ggml-alloc.c
         ${GGML_DIR}/src/ggml-backend.cpp
         ${GGML_DIR}/src/ggml-threading.cpp
@@ -33,12 +36,13 @@ set(SMOLLM_SOURCES
         ${LLAMA_DIR}/src/llama-model-loader.cpp
         ${LLAMA_DIR}/src/llama-impl.cpp
         ${LLAMA_DIR}/src/llama-memory.cpp
+        ${LLAMA_DIR}/src/llama-memory-recurrent.cpp
+        ${LLAMA_DIR}/src/llama-memory-hybrid.cpp
         ${LLAMA_DIR}/src/llama-mmap.cpp
         ${LLAMA_DIR}/src/llama-hparams.cpp
         ${LLAMA_DIR}/src/llama-hparams.cpp
-        ${LLAMA_DIR}/src/llama-kv-cache-recurrent.cpp
-        ${LLAMA_DIR}/src/llama-kv-cache-unified-iswa.cpp
-        ${LLAMA_DIR}/src/llama-kv-cache-unified.cpp
+        ${LLAMA_DIR}/src/llama-kv-cache-iswa.cpp
+        ${LLAMA_DIR}/src/llama-kv-cache.cpp
         ${LLAMA_DIR}/src/llama-batch.cpp
         ${LLAMA_DIR}/src/llama-arch.cpp
         ${LLAMA_DIR}/src/llama-adapter.cpp
@@ -91,22 +95,30 @@ function(build_library target_name)
     add_library(
             ${target_name}
             SHARED
-            ${SMOLLM_SOURCES}
+            ${LLAMA_SOURCES}
     )
     target_include_directories(
             ${target_name}
             PUBLIC
+            ${COMMON_DIR}
             ${GGML_DIR}/include
             ${GGML_DIR}/src
             ${GGML_DIR}/src/ggml-cpu
             ${LLAMA_DIR}/include
-            ${COMMON_DIR}
             ${VENDOR_DIR}
     )
 
-    # set the compile options for the target `ggml`
-    # targets `llama` and `common` are linked to `ggml`,
-    # thus inheriting the same compile options
+    # Constants GGML_COMMIT and GGML_VERSION in ggml.c
+    # are supplied through llama.cpp's CMake script (that in turn gets them from git)
+    # As we are NOT using llama.cpp's CMake script, we need to define them here
+    # The functions used to access these constants are unused, hence setting them
+    # to empty strings does not affect any functionality.
+    target_compile_definitions(
+            ${target_name}
+            PRIVATE
+            GGML_COMMIT=""
+            GGML_VERSION=""
+    )
 
     # -fvisibility=hidden: hide all symbols by default
     # -fvisibility-inlines-hidden: hide all inline symbols by default
@@ -192,6 +204,17 @@ target_include_directories(
         ${GGML_DIR}/include
         ${GGML_DIR}/src
         ${GGML_DIR}/src/ggml-cpu
+)
+# Constants GGML_COMMIT and GGML_VERSION in ggml.c
+# are supplied through llama.cpp's CMake script (that in turn gets them from git)
+# As we are NOT using llama.cpp's CMake script, we need to define them here
+# The functions used to access these constants are unused, hence setting them
+# to empty strings does not affect any functionality.
+target_compile_definitions(
+        ${TARGET_NAME_GGUF_READER}
+        PRIVATE
+        GGML_COMMIT=""
+        GGML_VERSION=""
 )
 target_compile_options(
         ${TARGET_NAME_GGUF_READER}

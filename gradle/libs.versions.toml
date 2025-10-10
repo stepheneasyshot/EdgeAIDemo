@@ -1,5 +1,6 @@
 [versions]
 agp = "8.11.1"
+aicore = "0.0.1-exp02"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -14,8 +15,13 @@ appcompat = "1.7.1"
 material = "1.12.0"
 appcompatVersion = "1.7.1"
 materialVersion = "1.12.0"
+ui = "1.9.3"
+navigationCompose = "2.9.5"
+kotlinSerialization = "1.6.0"
 
 [libraries]
+kotlin_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+aicore = { module = "com.google.ai.edge.aicore:aicore", version.ref = "aicore" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -35,8 +41,11 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 redfincommonhelper = { module = "com.github.stepheneasyshot:RedfinCommonHelper", version.ref = "redfincommonhelper" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompatVersion" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "ui" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

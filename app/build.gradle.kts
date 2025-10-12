@@ -66,4 +66,7 @@ dependencies {
     implementation(libs.redfincommonhelper)
 
     implementation(libs.aicore)
+
+    // TensorFlow Lite
+    implementation(libs.tflite)
 }

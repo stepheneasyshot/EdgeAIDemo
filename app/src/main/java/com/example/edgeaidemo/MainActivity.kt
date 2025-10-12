@@ -44,6 +44,7 @@ class MainActivity : ComponentActivity() {
                     val itemList = listOf(
                         MainPageItem.LLAMACPP,
                         MainPageItem.AICORE,
+                        MainPageItem.TFLITE,
                         MainPageItem.LITERT,
                     )
 
@@ -87,5 +88,6 @@ object MainPageItem {
     const val MAIN ="MAIN"
     const val LLAMACPP ="LLAMACPP"
     const val AICORE ="AICORE"
+    const val TFLITE = "TFLITE"
     const val LITERT ="LITERT"
 }

@@ -136,14 +136,15 @@ object LLManager {
     /**
      * 查看内部目录下是否有gguf后缀文件
      */
-    fun checkModelFileExist(): String? {
+    fun checkModelFileExist(): List<String> {
         val filesDir = appContext.filesDir
         val files = filesDir.listFiles()
+        val modelFiles = mutableListOf<String>()
         files?.forEach { file ->
             if (file.name.endsWith(".gguf")) {
-                return file.name
+                modelFiles.add(file.name)
             }
         }
-        return null
+        return modelFiles
     }
 }

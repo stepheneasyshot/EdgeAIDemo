@@ -16,7 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.edgeaidemo.ui.page.AiCoreChatDemo
 import com.example.edgeaidemo.ui.page.LiteRTDemoPage
-import com.example.edgeaidemo.ui.page.ModelLoadPage
+import com.example.edgeaidemo.ui.page.LlamaCppModelLoadPage
 import com.example.edgeaidemo.ui.page.NavMainPage
 import com.example.edgeaidemo.ui.theme.LLMDemoTheme
 import com.stephen.commonhelper.utils.infoLog
@@ -61,7 +61,7 @@ class MainActivity : ComponentActivity() {
                                         })
                                 }
                                 composable(MainPageItem.LLAMACPP) {
-                                    ModelLoadPage(innerPadding)
+                                    LlamaCppModelLoadPage(innerPadding)
                                 }
                                 composable(MainPageItem.AICORE) {
                                     AiCoreChatDemo(innerPadding)

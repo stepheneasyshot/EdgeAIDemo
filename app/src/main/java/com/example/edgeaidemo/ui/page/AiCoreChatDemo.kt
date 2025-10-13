@@ -21,6 +21,7 @@ import com.google.ai.edge.aicore.generationConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.DisposableEffect
+import com.stephen.commonhelper.utils.infoLog
 
 @Composable
 fun AiCoreChatDemo(paddingValues: PaddingValues) {
@@ -53,6 +54,7 @@ fun AiCoreChatDemo(paddingValues: PaddingValues) {
     }
 }
 
+const val AI_CORE_TAG = "AiCoreChatDemo"
 val aiCoreOutput = MutableStateFlow("")
 
 @SuppressLint("StaticFieldLeak")
@@ -66,12 +68,12 @@ val generationConfig = generationConfig {
 val downloadCallback = object : DownloadCallback {
     override fun onDownloadProgress(totalBytesDownloaded: Long) {
         super.onDownloadProgress(totalBytesDownloaded)
-        println("Download progress: $totalBytesDownloaded")
+        infoLog("Download progress: $totalBytesDownloaded", AI_CORE_TAG)
     }
 
     override fun onDownloadCompleted() {
         super.onDownloadCompleted()
-        println("Download completed")
+        infoLog("Download completed", AI_CORE_TAG)
     }
 }
 
@@ -82,9 +84,10 @@ val generativeModel = GenerativeModel(
 )
 
 suspend fun startChat(input: String) {
+    infoLog("Start chat: $input", AI_CORE_TAG)
     runCatching {
         val response = generativeModel.generateContent(input)
-        print(response.text)
+        infoLog("Response: ${response.text}", AI_CORE_TAG)
         aiCoreOutput.value = response.text.toString()
     }.onFailure { e ->
         e.printStackTrace()
@@ -92,6 +95,6 @@ suspend fun startChat(input: String) {
 }
 
 fun closeChatResponse() {
-    println("Closing chat response")
+    infoLog("Closing chat response", AI_CORE_TAG)
     generativeModel.close()
 }

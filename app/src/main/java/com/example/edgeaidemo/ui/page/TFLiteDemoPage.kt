@@ -11,7 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.edgeaidemo.litert.LiteRTLoadManager
 import com.example.edgeaidemo.ui.component.rememberToastState
+import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun TFLiteDemoPage(paddingValues: PaddingValues) {
@@ -19,6 +21,10 @@ fun TFLiteDemoPage(paddingValues: PaddingValues) {
     val scope = rememberCoroutineScope()
 
     val toastState = rememberToastState()
+
+    LaunchedEffect(Unit) {
+        LiteRTLoadManager.init()
+    }
 
     LazyColumn(
         modifier = Modifier

@@ -72,4 +72,11 @@ dependencies {
     implementation(libs.play.services.tflite.java)
     // Optional: include LiteRT Support Library
     implementation(libs.play.services.tflite.support)
+
+    // TensorFlow Lite
+    implementation(libs.tflite)
+    // 2. 推荐：用于模型元数据和实用程序的库
+    implementation(libs.tflite.support)
+    // 3. 可选：如果您需要特定的硬件加速（Delegate），请添加对应的独立依赖。例如，使用 GPU Delegate：
+    implementation(libs.tflite.gpu)
 }

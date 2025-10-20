@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.edgeaidemo.ui.component.rememberToastState
-import com.google.android.gms.tasks.Task
-import org.tensorflow.lite.InterpreterApi
 
 @Composable
 fun LiteRTDemoPage(paddingValues: PaddingValues) {
@@ -37,21 +35,3 @@ fun LiteRTDemoPage(paddingValues: PaddingValues) {
         }
     }
 }
-
-//object LiteRTLoadManager {
-//    val initializeTask: Task<Void> by lazy { TfLite.initialize(this) }
-//         private lateinit var interpreter: InterpreterApi
-//
-//        init{
-//        initializeTask.addOnSuccessListener {
-//            val interpreterOption =
-//                InterpreterApi.Options().setRuntime(TfLiteRuntime.FROM_SYSTEM_ONLY)
-//            interpreter = InterpreterApi.create(
-//                modelBuffer,
-//                interpreterOption
-//            )}
-//            .addOnFailureListener { e ->
-//                Log.e("Interpreter", "Cannot initialize interpreter", e)
-//            }
-//    }
-//}

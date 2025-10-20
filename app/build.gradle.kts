@@ -68,6 +68,8 @@ dependencies {
 
     implementation(libs.aicore)
 
-    // TensorFlow Lite
-    implementation(libs.tflite)
+    // LiteRT dependencies for Google Play services
+    implementation(libs.play.services.tflite.java)
+    // Optional: include LiteRT Support Library
+    implementation(libs.play.services.tflite.support)
 }

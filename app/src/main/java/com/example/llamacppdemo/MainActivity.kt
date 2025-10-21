@@ -1,4 +1,4 @@
-package com.example.edgeaidemo
+package com.example.llamacppdemo
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,15 +10,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.edgeaidemo.ui.page.AiCoreChatDemo
-import com.example.edgeaidemo.ui.page.LiteRTDemoPage
-import com.example.edgeaidemo.ui.page.LlamaCppModelLoadPage
-import com.example.edgeaidemo.ui.page.NavMainPage
-import com.example.edgeaidemo.ui.theme.LLMDemoTheme
+import com.example.llamacppdemo.ui.page.LlamaChatPage
+import com.example.llamacppdemo.ui.page.LlamaImagePage
+import com.example.llamacppdemo.ui.page.NavMainPage
+import com.example.llamacppdemo.ui.theme.LLMDemoTheme
 import com.stephen.commonhelper.utils.infoLog
 import kotlinx.serialization.Serializable
 
@@ -41,12 +42,12 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    val itemList = listOf(
-                        MainPageItem.LLAMACPP,
-                        MainPageItem.AICORE,
-                        MainPageItem.TFLITE,
-                        MainPageItem.LITERT,
-                    )
+                    val itemList = remember {
+                        mutableStateListOf(
+                            MainPageItem.LLAMACPPCHAT,
+                            MainPageItem.LLAMACPPIMAGE
+                        )
+                    }
 
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                         // 右侧内容区
@@ -60,14 +61,11 @@ class MainActivity : ComponentActivity() {
                                             navController.navigate(it)
                                         })
                                 }
-                                composable(MainPageItem.LLAMACPP) {
-                                    LlamaCppModelLoadPage(innerPadding)
+                                composable(MainPageItem.LLAMACPPCHAT) {
+                                    LlamaChatPage(innerPadding)
                                 }
-                                composable(MainPageItem.AICORE) {
-                                    AiCoreChatDemo(innerPadding)
-                                }
-                                composable(MainPageItem.LITERT) {
-                                    LiteRTDemoPage(innerPadding)
+                                composable(MainPageItem.LLAMACPPIMAGE) {
+                                    LlamaImagePage(innerPadding)
                                 }
                             }
                         }
@@ -85,9 +83,8 @@ class MainActivity : ComponentActivity() {
 
 @Serializable
 object MainPageItem {
-    const val MAIN ="MAIN"
-    const val LLAMACPP ="LLAMACPP"
-    const val AICORE ="AICORE"
-    const val TFLITE = "TFLITE"
-    const val LITERT ="LITERT"
+    const val MAIN = "MAIN"
+    const val LLAMACPPCHAT = "LLAMACPPCHAT"
+    const val LLAMACPPIMAGE = "LLAMACPPIMAGE"
+
 }

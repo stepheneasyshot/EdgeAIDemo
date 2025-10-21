@@ -1,8 +1,8 @@
-package com.example.edgeaidemo.llamacpp
+package com.example.llamacppdemo.llamacpp
 
 import android.net.Uri
 import android.provider.OpenableColumns
-import com.example.edgeaidemo.appContext
+import com.example.llamacppdemo.appContext
 import com.stephen.commonhelper.utils.debugLog
 import com.stephen.commonhelper.utils.errorLog
 import com.stephen.commonhelper.utils.infoLog

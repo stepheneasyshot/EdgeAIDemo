@@ -1,4 +1,4 @@
-package com.example.edgeaidemo.ui.theme
+package com.example.llamacppdemo.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

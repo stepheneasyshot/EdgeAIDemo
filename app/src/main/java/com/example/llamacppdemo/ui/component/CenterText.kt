@@ -1,4 +1,4 @@
-package com.example.edgeaidemo.ui.component
+package com.example.llamacppdemo.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import com.example.edgeaidemo.ui.theme.defaultText
+import com.example.llamacppdemo.ui.theme.defaultText
 
 @Composable
 fun CenterText(

@@ -1,4 +1,4 @@
-package com.example.edgeaidemo.ui.page
+package com.example.llamacppdemo.ui.page
 
 import android.content.Intent
 import android.os.Environment
@@ -33,11 +33,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
-import com.example.edgeaidemo.llamacpp.LLManager
-import com.example.edgeaidemo.ui.component.CenterText
-import com.example.edgeaidemo.ui.component.CommonButton
-import com.example.edgeaidemo.ui.component.WrappedEditText
-import com.example.edgeaidemo.ui.component.rememberToastState
+import com.example.llamacppdemo.llamacpp.LLManager
+import com.example.llamacppdemo.ui.component.CenterText
+import com.example.llamacppdemo.ui.component.CommonButton
+import com.example.llamacppdemo.ui.component.WrappedEditText
+import com.example.llamacppdemo.ui.component.rememberToastState
 import com.stephen.commonhelper.utils.errorLog
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +45,7 @@ import com.stephen.commonhelper.utils.infoLog
 import kotlinx.coroutines.launch
 
 @Composable
-fun LlamaCppModelLoadPage(padding: PaddingValues) {
+fun LlamaImagePage(padding: PaddingValues) {
 
     val scope = rememberCoroutineScope()
 
@@ -99,7 +99,7 @@ fun LlamaCppModelLoadPage(padding: PaddingValues) {
             ) {
                 focusManager.clearFocus()
             }) {
-        Text(text = "llama.cpp GGUF模型加载页", fontSize = 30.sp, modifier = Modifier.padding(bottom = 10.dp))
+        Text(text = "Llama.cpp 图片模型 加载页", fontSize = 30.sp, modifier = Modifier.padding(bottom = 10.dp))
 
         if (internalGGUFFileList.isNotEmpty()) {
             Text(

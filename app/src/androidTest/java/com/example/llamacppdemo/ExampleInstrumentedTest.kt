@@ -1,4 +1,4 @@
-package com.example.edgeaidemo
+package com.example.llamacppdemo
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

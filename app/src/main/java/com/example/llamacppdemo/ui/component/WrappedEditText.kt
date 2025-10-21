@@ -1,4 +1,4 @@
-package com.example.edgeaidemo.ui.component
+package com.example.llamacppdemo.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -19,7 +19,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.unit.dp
-import com.example.edgeaidemo.ui.theme.defaultText
+import com.example.llamacppdemo.ui.theme.defaultText
 
 @Composable
 fun WrappedEditText(

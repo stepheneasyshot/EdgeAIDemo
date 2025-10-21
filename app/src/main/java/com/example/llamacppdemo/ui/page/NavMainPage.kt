@@ -1,4 +1,4 @@
-package com.example.edgeaidemo.ui.page
+package com.example.llamacppdemo.ui.page
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,7 +24,7 @@ fun NavMainPage(list: List<String>, paddingValues: PaddingValues, onClickItem: (
         horizontalAlignment = Alignment.CenterHorizontally) {
 
         item {
-            Text("Edge AI Demo",
+            Text("LlamaCpp AI Demo",
                 fontSize = 24.sp,
                 modifier = Modifier.padding(vertical = 20.dp))
         }

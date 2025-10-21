@@ -27,6 +27,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "EdgeAIDemo"
+rootProject.name = "LlamaCppDemo"
 include(":app")
 include(":llamacppbridge")
